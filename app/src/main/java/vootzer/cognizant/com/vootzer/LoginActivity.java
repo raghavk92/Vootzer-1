@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -44,6 +45,7 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends AppCompatActivity {
     DatabaseHelper helper = new DatabaseHelper(this);
+    SharedPreferences log_in_pref = getSharedPreferences("is_logged_in", Context.MODE_PRIVATE);
 
 //    EditText phn = (EditText) findViewById(R.id.ETphone);
 //    String phone = phn.getText().toString();
@@ -72,6 +74,10 @@ public class LoginActivity extends AppCompatActivity {
 
 // Initialize Stetho with the Initializer
         Stetho.initialize(initializer);
+        if(log_in_pref.getString("is_logged_in",null) == "True"){
+            Intent in = new Intent(this, MainActivity.class);
+            startActivity(in);
+        }
         setContentView(R.layout.activity_login);
     }
 
@@ -131,6 +137,10 @@ public class LoginActivity extends AppCompatActivity {
                     user.setUsability(usability);
                     //**** Insert user details to database
                     helper.insertUser(user);
+                    // set is_logged_in preference to truw
+                    SharedPreferences.Editor editor = log_in_pref.edit();
+                    editor.putString("is_logged_in", "True");
+                    editor.apply();
                     // navigate to the main home page
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);

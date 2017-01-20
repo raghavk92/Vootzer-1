@@ -1,5 +1,6 @@
 package vootzer.cognizant.com.vootzer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        findViewById(R.id.action_signout);
     }
 
     @Override
@@ -67,9 +70,9 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+         Intent intent;
 
         if (id == R.id.nav_home) {
-
         } else if (id == R.id.nav_events_create) {
 
         } else if (id == R.id.nav_events_history) {

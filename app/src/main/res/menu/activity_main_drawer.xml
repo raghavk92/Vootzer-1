@@ -12,4 +12,10 @@
             android:id="@+id/nav_events_history"
             android:title="History" />
     </group>
+    <group>
+        <item
+            android:id="@+id/action_signout"
+            android:orderInCategory="100"
+            android:title="@string/action_sign_out" />
+    </group>
 </menu>
