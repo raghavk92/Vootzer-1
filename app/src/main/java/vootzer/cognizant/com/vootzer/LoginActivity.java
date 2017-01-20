@@ -131,6 +131,10 @@ public class LoginActivity extends AppCompatActivity {
                     user.setUsability(usability);
                     //**** Insert user details to database
                     helper.insertUser(user);
+                    // navigate to the main home page
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    // show popup message to welcom user
                     pop.show();
                 } else
                     po.show();
