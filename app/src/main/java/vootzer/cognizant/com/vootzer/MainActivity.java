@@ -1,15 +1,21 @@
 package vootzer.cognizant.com.vootzer;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -28,8 +34,22 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(0);
 
-        findViewById(R.id.action_signout);
+        AppCompatButton signoutBtn = (AppCompatButton)findViewById(R.id.action_signout);
+        signoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // get prefs and set to false.
+                SharedPreferences.Editor editor = getApplicationContext().getSharedPreferences("Session", MODE_PRIVATE).edit();
+                editor.putBoolean("is_logged_in",false);
+                editor.apply();
+                editor.commit();
+                // go to login activity
+                Intent in = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(in);
+            }
+        });
     }
 
     @Override
@@ -70,13 +90,22 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-         Intent intent;
+        //creating fragment object
+        Fragment fragment = null;
 
         if (id == R.id.nav_home) {
+            fragment = new HomeFragment();
         } else if (id == R.id.nav_events_create) {
-
+            fragment = new CreateEventFragment();
         } else if (id == R.id.nav_events_history) {
+            fragment = new HistoryFragment();
+        }
 
+        //replacing the fragment
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame, fragment);
+            ft.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
