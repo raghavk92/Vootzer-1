@@ -12,4 +12,5 @@
             android:id="@+id/nav_events_history"
             android:title="History" />
     </group>
+
 </menu>
