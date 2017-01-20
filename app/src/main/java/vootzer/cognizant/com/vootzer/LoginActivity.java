@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
 
         session = getApplicationContext().getSharedPreferences("Session", MODE_PRIVATE);
 
-        if (session.getBoolean("is_logged_in", true)) {
+        if (session.getBoolean("is_logged_in", false)) {
             Intent in = new Intent(this, MainActivity.class);
             startActivity(in);
         } else {
@@ -120,6 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = session.edit();
                     editor.putBoolean("is_logged_in", true);
                     editor.apply();
+                    editor.commit();
                     // navigate to the main home page
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);

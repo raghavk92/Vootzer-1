@@ -9,7 +9,7 @@
     tools:openDrawer="start">
 
     <include
-        layout="@layout/app_bar_main"
+        layout="@layout/drawer_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -34,8 +34,7 @@
                 android:background="#f00"
                 android:textColor="#fff"
                 android:text="@string/action_sign_out"
-                android:id="@+id/sign_out_btn"
-                style="@style/Widget.AppCompat.Button.Colored" />
+                android:id="@+id/action_signout"/>
 
         </RelativeLayout>
 
